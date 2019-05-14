@@ -121,7 +121,7 @@ let gas = Transaction.intrinsicGas(clauses)
 console.log(gas)
 // 21000
 
-let body: Transaction.Body = {
+let tx = new Transaction({
     chainTag: 0x9a,
     blockRef: '0x0000000000000000',
     expiration: 32,
@@ -130,11 +130,9 @@ let body: Transaction.Body = {
     gas: 21000,
     dependsOn: null,
     nonce: 12345678
-}
+})
 
-let tx = new Transaction(body)
-let signingHash = cry.blake2b256(tx.encode())
-tx.signature = cry.secp256k1.sign(signingHash, /* your private key */)
+tx.signature = cry.secp256k1.sign(tx.signingHash(), /* your private key */)
 
 let raw = tx.encode()
 let decoded = Transaction.decode(raw)
