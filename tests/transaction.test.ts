@@ -145,5 +145,12 @@ describe("transaction", () => {
 
         expect(delegated.origin).equal('0x' + addr1.toString('hex'))
         expect(delegated.delegator).equal('0x' + addr2.toString('hex'))
+
+        // from thor's test case
+        const tx = Transaction.decode(Buffer.from('f8db81a484aabbccdd20f840df947567d83b7b8d80addcb281a71d54fc7b3364ffed82271086000000606060df947567d83b7b8d80addcb281a71d54fc7b3364ffed824e20860000006060608180830334508083bc614ec101b882bad4d4401b1fb1c41d61727d7fd2aeb2bb3e65a27638a5326ca98404c0209ab159eaeb37f0ac75ed1ac44d92c3d17402d7d64b4c09664ae2698e1102448040c000f043fafeaf60343248a37e4f1d2743b4ab9116df6d627b4d8a874e4f48d3ae671c4e8d136eb87c544bea1763673a5f1762c2266364d1b22166d16e3872b5a9c700', 'hex'))
+        expect(tx.signingHash().toString('hex')).equal('96c4cd08584994f337946f950eca5511abe15b152bc879bf47c2227901f9f2af')
+        expect(tx.signingHash('0xd989829d88b0ed1b06edf5c50174ecfa64f14a64').toString('hex')).equal('956577b09b2a770d10ea129b26d916955df3606dc973da0043d6321b922fdef9')
+        expect(tx.origin).equal('0xd989829d88b0ed1b06edf5c50174ecfa64f14a64')
+        expect(tx.delegator).equal('0xd3ae78222beadb038203be21ed5ce7c9b1bff602')
     })
 })
